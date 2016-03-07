@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>swipe</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+  <!-- uc强制竖屏 --><meta name="screen-orientation" content="portrait">
+  <!-- QQ强制竖屏 --><meta name="x5-orientation" content="portrait">
+<script>
+  if (/Android (\d+\.\d+)/.test(navigator.userAgent)){//安卓
+	  var  version = parseFloat(RegExp.$1);
+	  if (version>2.3){
+	    var  phoneScale = parseInt(window.screen.width)/750;
+	    document.write( '<meta name="viewport" content="width=750, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">' );
+	  } else {
+	    document.write( '<meta name="viewport" content="width=750, target-densitydpi=device-dpi">' );
+	  }
+	} else {
+	  document.write( '<meta name="viewport" content="width=750, user-scalable=no, target-densitydpi=device-dpi">' );
+	}
+</script>
+
+  <style>
+  *{ margin: 0; padding: 0; list-style: none;}
+  .hint2 { height: 27px; width: 36px; z-index: 99; position: absolute; left: 50%; margin-left: -14px; opacity: 1; bottom: 55px; -webkit-animation: hint-move 1.2s infinite ease; background: url(http://i2.yongche.name/media/g1/M01/07/02/rBEARFacwFqIW3VMAAAG7nq_zqIAACzSgP_-PoAAAcG905.png?1453059720) no-repeat center bottom; background-size: 100% auto; }
+  @-webkit-keyframes hint-move { 
+      0% { opacity: 0; bottom: 30px; }
+     70% { opacity: 1; bottom: 25px; }
+    100% { opacity: 0; bottom: 30px; }
+  }
+  input[type="submit"], input[type="reset"], input[type="button"], button { -webkit-appearance: none; /*去掉苹果的默认UI来渲染按钮*/}
+  ::-webkit-input-placeholder { /* WebKit browsers */color: #3d2621;}
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */color: #3d2621;}
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */color: #3d2621;}
+  :-ms-input-placeholder { /* Internet Explorer 10+ */color: #3d2621;}
+  .a1{ background: url(http://i2.yongche.name/media/g1/M04/08/3D/rBEAQ1agRF-IB6PsAAC1DyOdnNIAADjJwN7QhkAALUn870.jpg?1453318920) no-repeat;}
+  .a2{ background: url(http://i1.yongche.name/media/g1/M04/08/3D/rBEAQ1agRF-INweSAAGBmrbOoQ8AADjJwOAtXYAAYGy833.jpg?1453318920) no-repeat;}
+  .a3{ background: url(http://i3.yongche.name/media/g1/M01/08/3C/rBEARFagRF6INTJnAAB9y7FjLbQAADjJQP90f0AAH3j004.jpg?1453318920) no-repeat;}
+  .a4{ background: url(http://i1.yongche.name/media/g1/M01/08/3C/rBEARFagRF6IaFCAAADtQPxVfwgAADjJQP-T-AAAO1Y667.jpg?1453318920) no-repeat;}
+  .a5{ background: url(http://i3.yongche.name/media/g1/M03/08/3D/rBEARFagRHyIJUmZAACR356jWD4AADjJgMNHY0AAJH3738.jpg?1453318920) no-repeat;}
+
+  html{ font-size: 20px;}
+  .wrap{ background: black;}
+  .wrap ul li{width: 750px; height: 1218px; position: relative;}
+  a#down{display: block;height: 59px;width: 365px;position: absolute;left: 50%;margin-left: -182px;top:934px;background: url(http://i2.yongche.name/media/g1/M03/08/3D/rBEAQ1agRHyIaQPyAAAlCeZgPqIAADjJgMNr4QAACUh085.png?1453318920) no-repeat;}
+</style>
+</head>
+<script src="http://i2.yongche.name/js/jquery/jquery-1.8.3.min.js?1456255560"></script>
+<body>
+  <div class="wrap">
+    <ul>
+      <li class="a1">
+        <div class="hint2"></div>
+      </li>
+      <li class="a2">
+        <div class="hint2"></div>
+      </li>
+      <li class="a3">
+        <div class="hint2"></div>
+      </li>
+      <li class="a4">
+        <div class="hint2"></div>
+      </li>
+      <li class="a5">
+        <a href="http://m.yongche.com" id="down"></a>
+      </li>
+    </ul>
+  </div>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function(){
+  var oWrap = document.querySelector(".wrap");
+  var oUl   = document.querySelector('.wrap ul');
+  var aLi   = oUl.children;
+  var y = 0,space = 50,iNow = 0;
+  oWrap.addEventListener('touchstart',function(ev){
+    var startY = ev.targetTouches[0].pageY;
+    var disY = startY - y;
+    oUl.style.WebkitTransition = 'none';
+
+    function liewenShow(){
+      document.getElementById("liewen").style.opacity = "1";
+      oWrap.removeEventListener('webkitTransitionEnd',liewenShow,false);
+    }
+    function fnMove(ev){
+      y = ev.targetTouches[0].pageY-disY;
+      //oUl.style.WebkitTransform = 'translateY('+y+'px)';
+      ev.preventDefault();
+    }
+    function fnEnd(ev){
+      oWrap.removeEventListener('touchmove',fnMove,false);
+      oWrap.removeEventListener('touchend' ,fnEnd,false);
+      // console.log(y);
+      var upY = ev.changedTouches[0].pageY;
+      if(Math.abs(upY-startY)>space){
+        if(startY>upY){//开始>结束
+          iNow++;
+          if(iNow>=aLi.length)iNow=aLi.length-1;
+        } else {
+          iNow--;
+          if(iNow<=0)iNow=0;
+        }
+      }
+      console.log("iNow="+iNow)
+      if(iNow==2){
+        if(document.getElementById("liewen")){
+          oWrap.addEventListener('webkitTransitionEnd',liewenShow,false);
+        }
+      }
+      y = -iNow*aLi[0].offsetHeight;
+      oUl.style.WebkitTransition = '0.6s all ease-out';
+      oUl.style.WebkitTransform  = 'translateY('+y+'px)';
+    }
+    oWrap.addEventListener("touchmove",fnMove,false)
+    oWrap.addEventListener("touchend" ,fnEnd,false)
+  },false)
+},false)
+</script>
+</body>
+</html>

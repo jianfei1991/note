@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+		var a = [1,2,3]
+		var b = a;
+		b[0] = "abc";
+		console.log("'a':"+a)
+		console.log("'b':"+b)
+	</script>
+	<script>
+		var a = [1,2,3]
+		var b = a.slice(0, a.length);
+		b[0] = "abc";
+		console.log("'a':"+a)
+		console.log("'b':"+b)
+	</script>
+	<script>
+		var a = [1,2,3]
+		var b = a.concat();
+		b[0] = "abc";
+		console.log("'a':"+a)
+		console.log("'b':"+b)
+		//*************结论：array的slice和concat方法不改变原数组，有返回值
+	</script>
+	<script>
+		//****json拷贝扩展
+		var person = {'name':'simon','age':18,'work':'worker'}
+		var tom = person;
+		tom['name']="Tom"
+		console.log(person)
+		console.log(tom)
+	</script>
+	<script>
+		//****json拷贝扩展
+		var deepCopy = function(source){
+			var result = {};
+			for(var key in source){
+				result[key] = typeof source[key]==='object'?deepCopy(source[key]):source[key];
+			}
+			return result
+		}
+		var person = {'name':'simon','age':18,'work':'worker'}
+		var tom = deepCopy(person)
+		tom['name']="Tom";
+		console.log(person)
+		console.log(tom)
+	</script>
+</head>
+<body>
+	console
+</body>
+</html>
