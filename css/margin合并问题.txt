@@ -1,22 +1,22 @@
-margin不会继承
+# margin不会继承
 Margin垂直外边距合并问题，外边距合并指的是，当两个垂直外边距相遇时，它们将形成一个外边距。合并后的外边距的高度等于两个发生合并的外边距的高度中的较大者。
 
-	<div style="height: 500px;width: 800px;background:#ccc;">
-		<div style="height: 100px;width: 100px;border:solid red 5px;margin-top:100px;"></div>
-	</div>
+<div style="height: 500px;width: 800px;background:#ccc;">
+<div style="height: 100px;width: 100px;border:solid red 5px;margin-top:100px;"></div>
+</div>
 
-	如上两个div实际效果图是 div父容器有margin-top:100px;的表现效果，而子容器没有margin-top:100px;的表现效果
+如上两个div实际效果图是 div父容器有margin-top:100px;的表现效果，而子容器没有margin-top:100px;的表现效果
 
-	css规范："这个问题发生的原因是根据规范，一个盒子如果没有上补白(padding-top)和上边框(border-top)，那么这个盒子的上边距会和其内部文档流中的第一个子元素的上边距重叠。"
+css规范："这个问题发生的原因是根据规范，一个盒子如果没有上补白(padding-top)和上边框(border-top)，那么这个盒子的上边距会和其内部文档流中的第一个子元素的上边距重叠。"
 
-	解决方案：
-		1、只要给领导设置个有效的border或者padding就可以有效的管制这个目无领导的margin防止它越级，假传圣旨，把自己的margin当领导的margin执行。
-		2、父元素设置overflow:hidden
-		3、
+解决方案：
+1、只要给领导设置个有效的border或者padding就可以有效的管制这个目无领导的margin防止它越级，假传圣旨，把自己的margin当领导的margin执行。
+2、父元素设置overflow:hidden
+3、
 
 
-		说明详见：
-			http://www.cnblogs.com/dolphinX/p/3508869.html
-			http://wenku.baidu.com/link?url=vHo4k6cVy_CDBWoWLvtRRd2n44kYIpbAlqp-DgA9LxEZgpAhRxj2iaGHGIvY1M3bUPKO-4sm-R2mM_IHLjgicDWromz7FNy1JENRdhJ84yW
+说明详见：
+http://www.cnblogs.com/dolphinX/p/3508869.html
+http://wenku.baidu.com/link?url=vHo4k6cVy_CDBWoWLvtRRd2n44kYIpbAlqp-DgA9LxEZgpAhRxj2iaGHGIvY1M3bUPKO-4sm-R2mM_IHLjgicDWromz7FNy1JENRdhJ84yW
 
-			百度关键词"BFC"
+百度关键词"BFC"
